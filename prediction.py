@@ -98,7 +98,7 @@ combined = combined.merge(matches_rolling[["date", "team", "opponent", "result"]
 # home and away matches
 
 # team name listed in team and opponent cols may be diff
-# e.g wolverhampton wanders | wolves
+# e.g Wolverhampton Wanderers | Wolves
 class MissingDict(dict):
     __missing__ = lambda self,key: key
 
@@ -124,8 +124,13 @@ combined["team"] = combined["team"].map(mapping)
 #  1000    |   2022-01-23   |   Burnley   |    Arsenal
 
 merged = combined.merge(combined, left_on=["date", "team"], right_on=["date", "opponent"])
-# pprint(merged)
+pprint(len(merged))
 
 # find rows where 1 team is predicted to win and the other is predicted to lose as they're more accurate
 acc_pred = merged[(merged["predicted_x"] == 1) & (merged["predicted_y"] == 0)]["actual_x"].value_counts()
-pprint(acc_pred)
+pprint(acc_pred / sum(acc_pred))
+
+accurate_predictions = merged.loc[(merged["actual_x"] == 1) & (merged["predicted_x"] == 1) & (merged["actual_y"] == 0) & (merged["predicted_y"] == 0)]
+pprint(accurate_predictions)
+
+# TODO: choose a Matchweek as the "next match" to test if prediction is accurate based on past 3 matches
