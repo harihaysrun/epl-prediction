@@ -68,6 +68,9 @@ while True:
     print(f"DRAW: {wdl_prediction[1]}")
     print(f"LOSE: {wdl_prediction[2]}")
 
+    # print actual result from original df
+    pprint(df[ (df["team"] == team) & (df["date"] == match_date) ][["team", "date", "result"]])
+
     cont_loop = input("Continue? y/n: ")
 
     if cont_loop == "n":
