@@ -9,6 +9,7 @@ pd.set_option("display.width", None)
 # pd.set_option("display.expand_frame_repr", False)
 
 matches = pd.read_csv("matches.csv", index_col=0)
+# matches = pd.read_excel("epl_23-26.xlsx", index_col=0)
 # pprint(matches)
 # print(matches.columns)
 
