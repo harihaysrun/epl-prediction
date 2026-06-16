@@ -150,8 +150,9 @@ match_df["elo_diff"] = match_df["home_elo"] - match_df["away_elo"]
 
 features = ["home_gls_avg5", "home_sh_avg5", "home_sot_avg5", "home_sot%_avg5", "home_g/sh_avg5", "home_g/sot_avg5", "home_pk_avg5", "home_pkatt_avg5","away_gls_avg5", "away_sh_avg5", "away_sot_avg5", "away_sot%_avg5", "away_g/sh_avg5", "away_g/sot_avg5", "away_pk_avg5", "away_pkatt_avg5", "home_elo", "away_elo", "elo_diff"]
 
-train = match_df[match_df["date_x"] < "2026-02-01"]
-test = match_df[match_df["date_x"] >= "2026-02-01"]
+date = "2025-08-15" # start of 25/26 season
+train = match_df[match_df["date_x"] < date]
+test = match_df[match_df["date_x"] >= date]
 
 X_train = train[features]
 y_train = train["result"]
@@ -230,11 +231,17 @@ while True:
     print("Choose a team:")
     print(", ".join(teams))
     home_team = input("Home team: ")
-    away_team = input("Away team: ")
+    if home_team in teams:
+        away_team = input("Away team: ")
+        if away_team in teams:
+            predict_match(home_team, away_team, calibrated_model)
 
-    predict_match(home_team, away_team, calibrated_model)
+            cont_loop = input("Continue? y/n: ")
 
-    cont_loop = input("Continue? y/n: ")
+            if cont_loop == "n":
+                break
 
-    if cont_loop == "n":
-        break
+        else:
+            print(f"{away_team} is not in the list")
+    else:
+        print(f"{home_team} is not in the list")
