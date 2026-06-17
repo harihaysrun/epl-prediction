@@ -3,5 +3,5 @@
 .idea
 *.csv
 *.xlsx
-catboost*
+/catboost_info
 .DS_store
