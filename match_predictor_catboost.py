@@ -1,6 +1,6 @@
 import pandas as pd
 from pprint import pprint
-from xgboost import XGBClassifier
+from catboost import CatBoostClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.calibration import CalibratedClassifierCV
 
@@ -160,13 +160,13 @@ X_test = test[features]
 y_test = test["result"]
 
 # train model
-model = XGBClassifier(
-    n_estimators=200,
-    learning_rate=0.05,
-    max_depth=4,
-    subsample=0.8,
-    colsample_bytree=0.8,
-    eval_metric="mlogloss"
+model = CatBoostClassifier(
+    loss_function="MultiClass",
+    iterations=100,
+    depth=4,
+    learning_rate=0.1,
+    random_seed=1,
+    verbose=0
 )
 
 model.fit(X_train, y_train)
@@ -187,7 +187,7 @@ calibrated_model.fit(X_train, y_train)
 # evaluate
 predictions = calibrated_model.predict(X_test)
 print("Accuracy after calibration:", accuracy_score(y_test, predictions))
-print(confusion_matrix(y_test, predictions))
+# print(confusion_matrix(y_test, predictions))
 
 latest = df.sort_values("date").groupby("team").tail(1).set_index("team")
 # print(latest)

@@ -102,8 +102,8 @@ model = RandomForestClassifier(n_estimators=200, random_state=42)
 model.fit(X_train, y_train)
 
 # evaluate
-# predictions = model.predict(X_test)
-# print("Accuracy:", accuracy_score(y_test, predictions))
+predictions = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, predictions))
 # print(confusion_matrix(y_test, predictions))
 
 latest = df.sort_values("date").groupby("team").tail(1).set_index("team")
@@ -132,9 +132,9 @@ def predict_match(home_team, away_team, model):
     # print(row)
     probs = model.predict_proba(row)[0]
 
-    print(f'''{home_team} win: {round(probs[0] * 100, 2)},
-draw: {round(probs[1] * 100, 2)},
-{away_team} win: {round(probs[2] * 100, 2)}'''
+    print(f'''{home_team} win: {round(probs[0] * 100, 2)}%,
+Draw: {round(probs[1] * 100, 2)}%,
+{away_team} win: {round(probs[2] * 100, 2)}%'''
     )
 
 # predicts probability of W/D/L using home/away stats
