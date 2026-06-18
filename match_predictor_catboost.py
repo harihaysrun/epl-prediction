@@ -143,11 +143,15 @@ match_df["home_elo"] = home_elos
 match_df["away_elo"] = away_elos
 match_df["elo_diff"] = match_df["home_elo"] - match_df["away_elo"]
 
-# pprint(elo)
 
-# pprint(match_df)
 
-features = ["home_gls_avg5", "home_sh_avg5", "home_sot_avg5", "home_sot%_avg5", "home_g/sh_avg5", "home_g/sot_avg5", "home_pk_avg5", "home_pkatt_avg5","away_gls_avg5", "away_sh_avg5", "away_sot_avg5", "away_sot%_avg5", "away_g/sh_avg5", "away_g/sot_avg5", "away_pk_avg5", "away_pkatt_avg5", "home_elo", "away_elo", "elo_diff"]
+# add extra features
+match_df["goals_diff"] = match_df["home_gls_avg5"] - match_df["away_gls_avg5"]
+match_df["shots_diff"] = match_df["home_sh_avg5"] - match_df["away_sh_avg5"]
+
+
+
+features = ["home_gls_avg5", "home_sh_avg5", "home_sot_avg5", "home_sot%_avg5", "home_g/sh_avg5", "home_g/sot_avg5", "home_pk_avg5", "home_pkatt_avg5","away_gls_avg5", "away_sh_avg5", "away_sot_avg5", "away_sot%_avg5", "away_g/sh_avg5", "away_g/sot_avg5", "away_pk_avg5", "away_pkatt_avg5", "home_elo", "away_elo", "elo_diff", "goals_diff", "shots_diff"]
 
 date = "2025-08-15" # start of 25/26 season
 train = match_df[match_df["date_x"] < date]
@@ -175,24 +179,23 @@ y_pred = model.predict(X_test)
 y_proba = model.predict_proba(X_test)
 
 print("Accuracy:", accuracy_score(y_test, y_pred))
-# print(confusion_matrix(y_test, y_pred))
-# print("Log Loss:", log_loss(y_test, y_proba))
 
-calibrated_model = CalibratedClassifierCV(model, method="isotonic")
+calibrated_model = CalibratedClassifierCV(model, method="sigmoid", cv=3)
 calibrated_model.fit(X_train, y_train)
 
-# y_proba_calibrated = calibrated_model.predict_proba(X_test)
-# print("Calibrated Log Loss:", log_loss(y_test, y_proba_calibrated))
-
-# evaluate
 predictions = calibrated_model.predict(X_test)
 print("Accuracy after calibration:", accuracy_score(y_test, predictions))
-# print(confusion_matrix(y_test, predictions))
 
 latest = df.sort_values("date").groupby("team").tail(1).set_index("team")
-# print(latest)
 
 def predict_match(home_team, away_team, model):
+
+    home = df[df["team"] == home_team].iloc[-1]
+    away = df[df["team"] == away_team].iloc[-1]
+
+    goals_diff = home["gls_avg5"] - away["gls_avg5"]
+    shots_diff = home["sh_avg5"] - away["sh_avg5"]
+
     row = pd.DataFrame([{
         "home_gls_avg5": latest.loc[home_team, "gls_avg5"],
         "home_sh_avg5": latest.loc[home_team, "sh_avg5"],
@@ -214,7 +217,10 @@ def predict_match(home_team, away_team, model):
 
         "home_elo": elo.get(home_team),
         "away_elo": elo.get(away_team),
-        "elo_diff": elo.get(home_team) - elo.get(away_team)
+        "elo_diff": elo.get(home_team) - elo.get(away_team),
+
+        "goals_diff": goals_diff,
+        "shots_diff": shots_diff
     }])
 
     probs = model.predict_proba(row)[0]
