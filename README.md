@@ -4,7 +4,7 @@ This project builds machine learning models to predict the probability of win, d
 
 It includes:
 - Single-team model: estimates how strong a team is likely to perform
-- Dual-team model: predicts match outcome between two teams (home vs away)
+- Dual-team model: predicts match outcome between home and away teams
 
 ## Model development overview
 
@@ -18,14 +18,14 @@ It includes:
    7. Improved precision by looking at both sides of the match (home/away)
 
 2. `single_team_predictor.py`:
-   - Predicts win/draw/loss probabilities for a single team
-   - Allows user to input a match date
+   - Implements a baseline RandomForest model using single-team features to estimate match win/draw/loss probabilities
+   - Allows user to input a match date and team name
    - Ensures predictions only use past data
    - Actual match result is printed afterward to check for accuracy
    ![single team predictor](images/single_team_predictor.png)
 
 3. `match_predictor.py`:
-   - Predicts win/draw/loss probabilities for two teams (home vs away)
+   - Implements a RandomForest model to predict win/draw/loss probabilities for two teams (home vs away)
    - Uses team strength features for both sides
    - Allows user to input home and away teams
    - Computes probabilities based on comparative team performance
@@ -34,25 +34,27 @@ It includes:
    ![home vs away predictor – man u vs arsenal](images/rf_3.png)
 
 4. `match_predictor_xgboost.py`:
-   - Predicts win/draw/loss probabilities for two teams (home vs away)
-   - Improved dual-team model using XGBoost
+   - Implements an XGBoost model to predict win/draw/loss
    - Incorporates Elo-based team strength ratings
-   - Allows user to input home and away teams
-   - Computes probabilities based on comparative team performance
    - Accuracy (with calibration): ~0.47
    ![home vs away predictor – wolves vs arsenal](images/xgboost.png)
    ![home vs away predictor – man u vs arsenal](images/xgboost_3.png)
    
 5. `match_predictor_catboost.py`:
-   - Implements a CatBoost-based classification model for predicting win/draw/loss probabilities for two teams (home vs away)
+   - Implements a CatBoost model
+   - Builds on the same feature engineering pipeline as the XGBoost version, with added features (`goals_diff` and `shots_diff`)
+   - Accuracy (with calibration): ~0.497
+   ![home vs away predictor – wolves vs arsenal](images/catboost_3.png)
+   ![home vs away predictor – man u vs arsenal](images/catboost_4.png)
+   
+6. `match_predictor_lightgbm.py`:
+   - Implements a LightGBM model
    - Builds on the same feature engineering pipeline as the XGBoost version
-   - Allows user to input home and away teams
-   - Computes probabilities based on comparative team performance
    - Accuracy (with calibration): ~0.48
-   ![home vs away predictor – wolves vs arsenal](images/catboost.png)
-   ![home vs away predictor – man u vs arsenal](images/catboost_2.png)
+   ![home vs away predictor – wolves vs arsenal](images/lightgbm.png)
+   ![home vs away predictor – man u vs arsenal](images/lightgbm_2.png)
 
 ## Notes
 - Models are trained on historical EPL match data (past 3 seasons)
 - Time-based split is used to prevent data leakage
-- Features include rolling averages, team strength, and Elo ratings
+- Features include rolling averages, Elo ratings, and derived team strength metrics
