@@ -5,3 +5,4 @@
 *.xlsx
 /catboost_info
 .DS_store
+/images/old

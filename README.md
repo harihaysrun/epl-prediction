@@ -22,7 +22,7 @@ It includes:
    - Allows user to input a match date and team name
    - Ensures predictions only use past data
    - Actual match result is printed afterward to check for accuracy
-   ![single team predictor](images/single_team_predictor.png)
+   ![single team predictor](images/rf_single.png)
 
 3. `match_predictor.py`:
    - Implements a RandomForest model to predict win/draw/loss probabilities for two teams (home vs away)
@@ -30,29 +30,25 @@ It includes:
    - Allows user to input home and away teams
    - Computes probabilities based on comparative team performance
    - Accuracy: ~0.42
-   ![home vs away predictor – wolves vs arsenal](images/rf.png)
-   ![home vs away predictor – man u vs arsenal](images/rf_3.png)
+   ![randomforest](images/rf_combined.png)
 
 4. `match_predictor_xgboost.py`:
    - Implements an XGBoost model to predict win/draw/loss
    - Incorporates Elo-based team strength ratings
    - Accuracy (with calibration): ~0.47
-   ![home vs away predictor – wolves vs arsenal](images/xgboost.png)
-   ![home vs away predictor – man u vs arsenal](images/xgboost_3.png)
+   ![xgboost](images/xgboost_combined.png)
    
 5. `match_predictor_catboost.py`:
    - Implements a CatBoost model
    - Builds on the same feature engineering pipeline as the XGBoost version, with added features (`goals_diff` and `shots_diff`)
    - Accuracy (with calibration): ~0.497
-   ![home vs away predictor – wolves vs arsenal](images/catboost_3.png)
-   ![home vs away predictor – man u vs arsenal](images/catboost_4.png)
+   ![catboost](images/catboost_combined.png)
    
 6. `match_predictor_lightgbm.py`:
    - Implements a LightGBM model
    - Builds on the same feature engineering pipeline as the XGBoost version
    - Accuracy (with calibration): ~0.48
-   ![home vs away predictor – wolves vs arsenal](images/lightgbm.png)
-   ![home vs away predictor – man u vs arsenal](images/lightgbm_2.png)
+   ![lightgbm](images/lightgbm_combined.png)
 
 ## Notes
 - Models are trained on historical EPL match data (past 3 seasons)
