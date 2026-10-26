@@ -1,7 +1,7 @@
 .venv
 .env
 .idea
-*.csv
+#*.csv
 *.xlsx
 /catboost_info
 .DS_store

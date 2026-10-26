@@ -39,7 +39,7 @@ pprint(df_final)
 df_final.to_excel("epl_23-27.xlsx", index=False)
 
 # get data for 26/27 match prediction vs results table
-cols = ["date","matchweek","team","result","opponent"]
+cols = ["matchweek","team","result","opponent"]
 
 current_matchweek_table = df_filtered[(df_filtered["season"] == "26/27") & (df_filtered["matchweek"].astype(int) == current_matchweek)][cols]
 current_matchweek_table["prediction"] = None
@@ -61,7 +61,6 @@ pprint(current_matchweek_table)
 conn = sqlite3.connect("epl_predictions.db")
 conn.execute("""
     CREATE TABLE IF NOT EXISTS predictions (
-        date TEXT,
         matchweek INTEGER,
         team TEXT,
         result TEXT,
