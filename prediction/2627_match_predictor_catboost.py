@@ -1,13 +1,13 @@
 import pandas as pd
 from pprint import pprint
-from xgboost import XGBClassifier
+from catboost import CatBoostClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.calibration import CalibratedClassifierCV
 
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
 
-data = pd.read_excel("epl_23-26.xlsx")
+data = pd.read_excel("../epl_23-27.xlsx")
 df = data.sort_values("date")
 
 
@@ -15,13 +15,16 @@ df = data.sort_values("date")
 # standardise team names for team & opponent columns
 teams = sorted(df["team"].unique())
 opponents = sorted(df["opponent"].unique())
-# print(teams)
-# print(opponents)
+print(teams)
+print(opponents)
 
 map_values = {}
 for index, opp in enumerate(opponents):
     map_values[opp] = teams[index]
 
+print()
+print(map_values)
+print()
 df["opponent"] = df["opponent"].replace(map_values)
 
 
@@ -143,15 +146,20 @@ match_df["home_elo"] = home_elos
 match_df["away_elo"] = away_elos
 match_df["elo_diff"] = match_df["home_elo"] - match_df["away_elo"]
 
-# pprint(elo)
 
-# pprint(match_df)
 
-features = ["home_gls_avg5", "home_sh_avg5", "home_sot_avg5", "home_sot%_avg5", "home_g/sh_avg5", "home_g/sot_avg5", "home_pk_avg5", "home_pkatt_avg5","away_gls_avg5", "away_sh_avg5", "away_sot_avg5", "away_sot%_avg5", "away_g/sh_avg5", "away_g/sot_avg5", "away_pk_avg5", "away_pkatt_avg5", "home_elo", "away_elo", "elo_diff"]
+# add extra features
+match_df["goals_diff"] = match_df["home_gls_avg5"] - match_df["away_gls_avg5"]
+match_df["shots_diff"] = match_df["home_sh_avg5"] - match_df["away_sh_avg5"]
 
-date = "2025-08-15" # start of 25/26 season
-train = match_df[match_df["date_x"] < date]
-test = match_df[match_df["date_x"] >= date]
+
+
+features = ["home_gls_avg5", "home_sh_avg5", "home_sot_avg5", "home_sot%_avg5", "home_g/sh_avg5", "home_g/sot_avg5", "home_pk_avg5", "home_pkatt_avg5","away_gls_avg5", "away_sh_avg5", "away_sot_avg5", "away_sot%_avg5", "away_g/sh_avg5", "away_g/sot_avg5", "away_pk_avg5", "away_pkatt_avg5", "home_elo", "away_elo", "elo_diff", "goals_diff", "shots_diff"]
+
+train_date_start = "2025-08-15" # start of 25/26 season
+train_date_end = "2026-08-21" # start of 26/27 season
+train = match_df[match_df["date_x"] < train_date_start]
+test = match_df[(match_df["date_x"] >= train_date_start) & (match_df["date_x"] < train_date_end)]
 
 X_train = train[features]
 y_train = train["result"]
@@ -160,13 +168,13 @@ X_test = test[features]
 y_test = test["result"]
 
 # train model
-model = XGBClassifier(
-    n_estimators=200,
-    learning_rate=0.05,
-    max_depth=4,
-    subsample=0.8,
-    colsample_bytree=0.8,
-    eval_metric="mlogloss"
+model = CatBoostClassifier(
+    loss_function="MultiClass",
+    iterations=100,
+    depth=4,
+    learning_rate=0.1,
+    random_seed=1,
+    verbose=0
 )
 
 model.fit(X_train, y_train)
@@ -175,24 +183,23 @@ y_pred = model.predict(X_test)
 y_proba = model.predict_proba(X_test)
 
 print("Accuracy:", accuracy_score(y_test, y_pred))
-# print(confusion_matrix(y_test, y_pred))
-# print("Log Loss:", log_loss(y_test, y_proba))
 
-calibrated_model = CalibratedClassifierCV(model, method="isotonic")
+calibrated_model = CalibratedClassifierCV(model, method="sigmoid", cv=3)
 calibrated_model.fit(X_train, y_train)
 
-# y_proba_calibrated = calibrated_model.predict_proba(X_test)
-# print("Calibrated Log Loss:", log_loss(y_test, y_proba_calibrated))
-
-# evaluate
 predictions = calibrated_model.predict(X_test)
 print("Accuracy after calibration:", accuracy_score(y_test, predictions))
-print(confusion_matrix(y_test, predictions))
 
 latest = df.sort_values("date").groupby("team").tail(1).set_index("team")
-# print(latest)
 
 def predict_match(home_team, away_team, model):
+
+    home = df[df["team"] == home_team].iloc[-1]
+    away = df[df["team"] == away_team].iloc[-1]
+
+    goals_diff = home["gls_avg5"] - away["gls_avg5"]
+    shots_diff = home["sh_avg5"] - away["sh_avg5"]
+
     row = pd.DataFrame([{
         "home_gls_avg5": latest.loc[home_team, "gls_avg5"],
         "home_sh_avg5": latest.loc[home_team, "sh_avg5"],
@@ -214,7 +221,10 @@ def predict_match(home_team, away_team, model):
 
         "home_elo": elo.get(home_team),
         "away_elo": elo.get(away_team),
-        "elo_diff": elo.get(home_team) - elo.get(away_team)
+        "elo_diff": elo.get(home_team) - elo.get(away_team),
+
+        "goals_diff": goals_diff,
+        "shots_diff": shots_diff
     }])
 
     probs = model.predict_proba(row)[0]
@@ -225,17 +235,22 @@ Draw: {round(probs[1] * 100, 2)}%,
 {away_team} win: {round(probs[2] * 100, 2)}%'''
     )
 
+
+current_teams = sorted(df[df["season"] == "26/27"]["team"].unique())
+
 # predicts probability of W/D/L using home/away stats
 while True:
-    print("Choose a team:")
-    print(", ".join(teams))
+    print(f"\nChoose a team:")
+    print(", ".join(current_teams))
     home_team = input("Home team: ")
     if home_team in teams:
         away_team = input("Away team: ")
         if away_team in teams:
             predict_match(home_team, away_team, calibrated_model)
 
+            print(f"\n-----------")
             cont_loop = input("Continue? y/n: ")
+            print("-----------")
 
             if cont_loop == "n":
                 break
