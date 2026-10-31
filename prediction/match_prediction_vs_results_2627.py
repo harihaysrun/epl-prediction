@@ -12,7 +12,7 @@ current_matchweek = 7
 
 matches = list(zip(df_prediction["team"], df_prediction["opponent"]))
 
-df, teams, calibrated_model, latest, elo = train_model("all")
+df, teams, calibrated_model, latest, elo = train_model("all", current_matchweek)
 
 for match in matches:
     home_team = match[0]
@@ -35,7 +35,7 @@ for match in matches:
                  UPDATE predictions
                  SET prediction = ?
                  WHERE matchweek = ? AND team = ?
-    """,(prediction, current_matchweek,home_team))
+    """,(prediction, current_matchweek, home_team))
     conn.commit()
 
 df_check = pd.read_sql_query("SELECT result, prediction FROM predictions WHERE matchweek = ?", conn, params=(current_matchweek,))

@@ -1,31 +1,11 @@
 matchweek,team,result,opponent,prediction
-1,Man City,W,Bournemouth,W
-1,Arsenal,W,Coventry City,W
-1,Brighton,W,Aston Villa,W
-1,Chelsea,W,Fulham,W
-1,Liverpool,D,Newcastle,W
-1,Brentford,W,Tottenham Hotspur,W
-1,Leeds,W,Nottingham Forest,L
-1,Everton,W,Crystal Palace,L
-1,Ipswich Town,W,Sunderland,L
-1,Hull City,W,Man U,W
-1,Newcastle,D,Liverpool,W
-1,Aston Villa,L,Brighton,W
-1,Man U,L,Hull City,W
-1,Crystal Palace,L,Everton,L
-1,Bournemouth,L,Man City,W
-1,Nottingham Forest,L,Leeds,L
-1,Tottenham Hotspur,L,Brentford,W
-1,Coventry City,L,Arsenal,W
-1,Fulham,L,Chelsea,W
-1,Sunderland,L,Ipswich Town,W
 2,Man City,W,Crystal Palace,W
 2,Arsenal,W,Aston Villa,W
 2,Brighton,L,Chelsea,W
 2,Chelsea,W,Brighton,W
 2,Liverpool,D,Nottingham Forest,W
 2,Brentford,D,Leeds,W
-2,Leeds,D,Brentford,L
+2,Leeds,D,Brentford,W
 2,Everton,D,Bournemouth,L
 2,Ipswich Town,L,Man U,L
 2,Hull City,W,Coventry City,W
@@ -35,28 +15,28 @@ matchweek,team,result,opponent,prediction
 2,Crystal Palace,L,Man City,L
 2,Bournemouth,D,Everton,W
 2,Nottingham Forest,D,Liverpool,L
-2,Tottenham Hotspur,L,Newcastle,W
+2,Tottenham Hotspur,L,Newcastle,L
 2,Coventry City,L,Hull City,W
 2,Fulham,L,Sunderland,W
 2,Sunderland,W,Fulham,W
 3,Man City,W,Coventry City,W
 3,Arsenal,W,Chelsea,W
 3,Brighton,D,Leeds,W
-3,Chelsea,L,Arsenal,W
+3,Chelsea,L,Arsenal,L
 3,Liverpool,W,Ipswich Town,W
 3,Brentford,D,Sunderland,W
 3,Leeds,D,Brighton,L
 3,Everton,D,Man U,L
 3,Ipswich Town,L,Liverpool,L
-3,Hull City,D,Aston Villa,W
+3,Hull City,D,Aston Villa,L
 3,Newcastle,D,Bournemouth,W
 3,Aston Villa,D,Hull City,W
 3,Man U,D,Everton,W
-3,Crystal Palace,W,Fulham,L
+3,Crystal Palace,W,Fulham,W
 3,Bournemouth,D,Newcastle,W
-3,Nottingham Forest,D,Tottenham Hotspur,L
-3,Tottenham Hotspur,D,Nottingham Forest,W
-3,Coventry City,L,Man City,W
+3,Nottingham Forest,D,Tottenham Hotspur,W
+3,Tottenham Hotspur,D,Nottingham Forest,L
+3,Coventry City,L,Man City,L
 3,Fulham,L,Crystal Palace,W
 3,Sunderland,D,Brentford,W
 4,Man City,W,Man U,W
@@ -65,40 +45,40 @@ matchweek,team,result,opponent,prediction
 4,Chelsea,D,Hull City,W
 4,Liverpool,D,Fulham,W
 4,Brentford,D,Bournemouth,W
-4,Leeds,W,Newcastle,L
-4,Everton,D,Tottenham Hotspur,L
-4,Ipswich Town,W,Crystal Palace,L
-4,Hull City,D,Chelsea,W
+4,Leeds,W,Newcastle,W
+4,Everton,D,Tottenham Hotspur,W
+4,Ipswich Town,W,Crystal Palace,W
+4,Hull City,D,Chelsea,L
 4,Newcastle,L,Leeds,W
 4,Aston Villa,L,Nottingham Forest,W
 4,Man U,L,Man City,W
-4,Crystal Palace,L,Ipswich Town,L
+4,Crystal Palace,L,Ipswich Town,W
 4,Bournemouth,D,Brentford,W
 4,Nottingham Forest,W,Aston Villa,L
-4,Tottenham Hotspur,D,Everton,W
-4,Coventry City,L,Brighton,W
-4,Fulham,D,Liverpool,W
-4,Sunderland,L,Arsenal,W
+4,Tottenham Hotspur,D,Everton,L
+4,Coventry City,L,Brighton,L
+4,Fulham,D,Liverpool,L
+4,Sunderland,L,Arsenal,L
 5,Man City,W,Sunderland,W
 5,Arsenal,L,Brighton,W
-5,Brighton,W,Arsenal,W
+5,Brighton,W,Arsenal,L
 5,Chelsea,L,Brentford,W
 5,Liverpool,W,Bournemouth,W
 5,Brentford,W,Chelsea,W
-5,Leeds,D,Crystal Palace,L
-5,Everton,W,Ipswich Town,L
+5,Leeds,D,Crystal Palace,W
+5,Everton,W,Ipswich Town,W
 5,Ipswich Town,L,Everton,L
-5,Hull City,L,Newcastle,W
+5,Hull City,L,Newcastle,L
 5,Newcastle,W,Hull City,W
 5,Aston Villa,W,Tottenham Hotspur,W
 5,Man U,D,Fulham,W
-5,Crystal Palace,D,Leeds,L
-5,Bournemouth,L,Liverpool,W
-5,Nottingham Forest,L,Coventry City,L
-5,Tottenham Hotspur,L,Aston Villa,W
-5,Coventry City,W,Nottingham Forest,W
-5,Fulham,D,Man U,W
-5,Sunderland,L,Man City,W
+5,Crystal Palace,D,Leeds,W
+5,Bournemouth,L,Liverpool,L
+5,Nottingham Forest,L,Coventry City,W
+5,Tottenham Hotspur,L,Aston Villa,L
+5,Coventry City,W,Nottingham Forest,L
+5,Fulham,D,Man U,L
+5,Sunderland,L,Man City,L
 6,Man City,W,Liverpool,W
 6,Arsenal,W,Leeds,W
 6,Brighton,W,Sunderland,W
@@ -106,27 +86,27 @@ matchweek,team,result,opponent,prediction
 6,Liverpool,L,Man City,W
 6,Brentford,D,Aston Villa,W
 6,Leeds,L,Arsenal,L
-6,Everton,D,Hull City,L
+6,Everton,D,Hull City,W
 6,Ipswich Town,W,Fulham,L
-6,Hull City,D,Everton,W
+6,Hull City,D,Everton,L
 6,Newcastle,L,Coventry City,W
 6,Aston Villa,D,Brentford,W
 6,Man U,D,Tottenham Hotspur,W
 6,Crystal Palace,W,Nottingham Forest,L
 6,Bournemouth,L,Chelsea,W
-6,Nottingham Forest,L,Crystal Palace,L
-6,Tottenham Hotspur,D,Man U,W
-6,Coventry City,W,Newcastle,W
+6,Nottingham Forest,L,Crystal Palace,W
+6,Tottenham Hotspur,D,Man U,L
+6,Coventry City,W,Newcastle,L
 6,Fulham,L,Ipswich Town,W
-6,Sunderland,L,Brighton,W
+6,Sunderland,L,Brighton,L
 7,Man City,W,Ipswich Town,W
 7,Arsenal,W,Nottingham Forest,W
 7,Brighton,W,Crystal Palace,W
 7,Chelsea,W,Everton,W
 7,Liverpool,W,Brentford,W
-7,Brentford,L,Liverpool,W
+7,Brentford,L,Liverpool,L
 7,Leeds,D,Man U,L
-7,Everton,L,Chelsea,L
+7,Everton,L,Chelsea,W
 7,Ipswich Town,L,Man City,L
 7,Hull City,L,Fulham,W
 7,Newcastle,L,Aston Villa,W

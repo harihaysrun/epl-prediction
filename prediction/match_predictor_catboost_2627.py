@@ -7,9 +7,15 @@ from sklearn.calibration import CalibratedClassifierCV
 pd.set_option('display.max_columns', None)
 pd.set_option('display.expand_frame_repr', False)
 
-def train_model(type):
+def train_model(type, current_matchweek):
     data = pd.read_excel("../epl_23-27.xlsx")
-    df = data.sort_values("date")
+    df_sorted = data.sort_values("date")
+
+    if current_matchweek > 1:
+        # exclude current/latest matchweek data
+        df = df_sorted[~((df_sorted["season"] == "26/27") & (df_sorted["matchweek"].astype(int) == current_matchweek))]
+    else:
+        df = df_sorted
 
 
 
@@ -275,4 +281,4 @@ def run_prediction(df, teams, calibrated_model, latest, elo):
             print(f"{home_team} is not in the list")
 
 if __name__ == "__main__":
-    train_model("input")
+    train_model("input", 1)
