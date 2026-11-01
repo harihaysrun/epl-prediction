@@ -119,3 +119,23 @@ matchweek,team,result,opponent,prediction
 7,Coventry City,L,Tottenham Hotspur,W
 7,Fulham,W,Hull City,W
 7,Sunderland,L,Bournemouth,W
+8,Man City,L,Aston Villa,W
+8,Arsenal,W,Everton,W
+8,Brighton,L,Liverpool,W
+8,Chelsea,L,Tottenham Hotspur,W
+8,Liverpool,W,Brighton,W
+8,Brentford,D,Hull City,W
+8,Leeds,D,Sunderland,W
+8,Everton,L,Arsenal,W
+8,Ipswich Town,D,Nottingham Forest,L
+8,Hull City,D,Brentford,W
+8,Newcastle,W,Crystal Palace,W
+8,Aston Villa,W,Man City,W
+8,Man U,L,Bournemouth,W
+8,Crystal Palace,L,Newcastle,L
+8,Bournemouth,W,Man U,L
+8,Nottingham Forest,D,Ipswich Town,W
+8,Tottenham Hotspur,W,Chelsea,L
+8,Coventry City,L,Fulham,W
+8,Fulham,W,Coventry City,W
+8,Sunderland,D,Leeds,W

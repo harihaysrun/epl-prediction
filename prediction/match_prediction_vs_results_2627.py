@@ -8,7 +8,7 @@ pd.set_option('display.expand_frame_repr', False)
 
 conn = sqlite3.connect("../epl_predictions.db")
 df_prediction = pd.read_sql_query("SELECT * FROM predictions", conn)
-current_matchweek = 7
+current_matchweek = 8
 
 matches = list(zip(df_prediction["team"], df_prediction["opponent"]))
 

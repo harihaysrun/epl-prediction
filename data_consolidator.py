@@ -4,7 +4,7 @@ import sqlite3
 
 files = ["23-24.xlsx", "24-25.xlsx", "25-26.xlsx", "26-27.xlsx"]
 
-current_matchweek = 7
+current_matchweek = 8
 game_data = []
 
 # loop through each file
