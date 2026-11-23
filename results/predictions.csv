@@ -139,3 +139,43 @@ matchweek,team,result,opponent,prediction
 8,Coventry City,L,Fulham,W
 8,Fulham,W,Coventry City,W
 8,Sunderland,D,Leeds,W
+9,Man City,L,Brighton,W
+9,Arsenal,W,Liverpool,W
+9,Brighton,W,Man City,W
+9,Chelsea,W,Man U,W
+9,Liverpool,L,Arsenal,W
+9,Brentford,W,Nottingham Forest,W
+9,Leeds,L,Bournemouth,L
+9,Everton,W,Newcastle,W
+9,Ipswich Town,D,Hull City,L
+9,Hull City,D,Ipswich Town,W
+9,Newcastle,L,Everton,W
+9,Aston Villa,D,Fulham,W
+9,Man U,L,Chelsea,W
+9,Crystal Palace,L,Tottenham Hotspur,W
+9,Bournemouth,W,Leeds,W
+9,Nottingham Forest,L,Brentford,W
+9,Tottenham Hotspur,W,Crystal Palace,W
+9,Coventry City,W,Sunderland,W
+9,Fulham,D,Aston Villa,L
+9,Sunderland,L,Coventry City,W
+10,Man City,L,Nottingham Forest,W
+10,Arsenal,W,Hull City,W
+10,Brighton,W,Brentford,W
+10,Chelsea,L,Sunderland,W
+10,Liverpool,W,Crystal Palace,W
+10,Brentford,L,Brighton,W
+10,Leeds,W,Tottenham Hotspur,W
+10,Everton,W,Coventry City,W
+10,Ipswich Town,L,Bournemouth,L
+10,Hull City,L,Arsenal,W
+10,Newcastle,D,Fulham,W
+10,Aston Villa,D,Man U,W
+10,Man U,D,Aston Villa,W
+10,Crystal Palace,L,Liverpool,L
+10,Bournemouth,W,Ipswich Town,W
+10,Nottingham Forest,W,Man City,L
+10,Tottenham Hotspur,L,Leeds,W
+10,Coventry City,L,Everton,W
+10,Fulham,D,Newcastle,W
+10,Sunderland,W,Chelsea,L
